@@ -22,6 +22,7 @@ function create(req, res, next) {
       });
     }).catch(function(err) {
       if (err.message.match(/E11000/)) {
+        console.log("req.body.email is " + req.body.email)
         err.status = 409;
       } else {
         err.status = 422;
