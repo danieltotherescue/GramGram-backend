@@ -23,7 +23,8 @@ function index(request, response) {
 
 function create(req, res) {
   var submission = new Submission(req.body);
-
+  //decode the user token
+  console.log(req.body)
   submission.user = req.decoded._id
 
   submission.save(function(error){
