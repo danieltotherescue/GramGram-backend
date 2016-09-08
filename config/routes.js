@@ -5,6 +5,8 @@ var router = express.Router();
 
 // Require controllers.
 var usersCtrl = require('../controllers/users');
+var compCtrl = require('../controllers/compositions');
+var subCtrl = require('../controllers/submissions');
 
 // Require token authentication.
 var token = require('../config/token_auth');
@@ -20,19 +22,15 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Gram Gram' });
 });
 
-// // http://127.0.0.1:3000/api/todos
-// router.route('/api/todos')
-//   //GET all todos
-//   .get(todosController.index)
-//   //POST a new todo
-//   .post(todosController.create);
-//
-// router.route('/api/todos/:id')
-//   // GET a specific todo
-//   .get(todosController.show)
-//   // PATCH update existing todo
-//   .patch(todosController.update)
-//   // DELETE remove specific todo from DB
-//   .delete(todosController.destroy);
+// compositions paths
+router.get('/compositions', token.authenticate,compCtrl.index);
+router.post('/compositions', token.authenticate,compCtrl.create);
+router.get('/compositions/:id', token.authenticate,compCtrl.show);
+
+// submissions paths
+router.get('/submissions', token.authenticate, subCtrl.index);
+router.post('/submissions', token.authenticate, subCtrl.create);
+router.get('/submissions/:id', token.authenticate, subCtrl.show);
+
 
 module.exports = router

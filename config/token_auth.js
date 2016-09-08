@@ -14,6 +14,7 @@ var jwt = require('jsonwebtoken');
  // changes to what your token looks like here.
  function extractPayload(user, options) {
    return {
+    _id: user._id,
     email: user.email,
     name:  user.name,
     username: user.username,
@@ -89,6 +90,7 @@ var jwt = require('jsonwebtoken');
   */
  function authenticate(req, res, next) {
    var token = findTokenInAuthHeader(req);
+   console.log(token);
    if (!token) return next({status: 401, message: 'Authenticate with token.'});
 
    verifyJwtAndHandleErrors(token, next, function(decoded) {

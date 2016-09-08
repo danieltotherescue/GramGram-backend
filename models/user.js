@@ -3,7 +3,9 @@ var mongoose = require('../config/database')
 var userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   username: { type: String, require: true, unique: true},
-  name:  { type: String, required: true }
+  name:  { type: String, required: true },
+  compositions: [{type: mongoose.Schema.Types.ObjectId, ref: 'Composition'}]
+  // submissions:[{type: mongoose.Schema.Types.ObjectId, ref: 'Submission'}]
 });
 
 // add bcrypt hashing to model (works on a password field)!
@@ -22,5 +24,6 @@ userSchema.options.toJSON = {
 };
 
 var User = mongoose.model('User', userSchema);
+
 
 module.exports = User;

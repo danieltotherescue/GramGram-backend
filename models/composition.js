@@ -3,22 +3,13 @@ var mongoose = require('../config/database')
 var compositionSchema = new mongoose.Schema({
   msg: { type: String },
   style: { type: String },
-  notes:  { type: String }
+  notes:  { type: String },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  //submissions are in an array bc there can be many submissions to the same message
+  submissions: [{type: mongoose.Schema.Types.ObjectId, ref: 'Submission'}]
 });
 
 
-
-// Add a "transformation" to the model's toJson function that
-// stops the password field (even in digest format) from being
-// returned in any response.
-// composeSchema.options.toJSON = {
-//   transform: function(document, returnedObject, options) {
-//     delete returnedObject.password;
-//     return returnedObject;
-//
-
-//   }
-// };
 
 var Composition = mongoose.model('Composition', compositionSchema);
 
