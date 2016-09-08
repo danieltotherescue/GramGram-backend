@@ -2,17 +2,23 @@ var Submission = require('../models/submission');
 
 module.exports = {
   index: index,
-  create: create, 
+  create: create,
   show: show
 }
 
 // GET /submissions
 function index(request, response) {
-  Submission.find({}, function(error, submissions) {
+  // ).populate('composition').exec(
+  Submission.find({}).populate('composition').select('-__v').exec(function(error, submissions) {
     if(error) response.json({message: 'Could not find any submissions'});
 
     response.json({submissions: submissions});
-  }).select('-__v');
+  })
+  // Submission.find({},function(error, submissions) {
+  //   if(error) response.json({message: 'Could not find any submissions'});
+  //
+  //   response.json({submissions: submissions});
+  // }).select('-__v');
 }
 
 function create(req, res) {
