@@ -9,7 +9,7 @@ module.exports = {
 // GET /submissions
 function index(request, response) {
   // ).populate('composition').exec(
-  Submission.find({}).populate('composition').select('-__v').exec(function(error, submissions) {
+  Submission.find({}).populate({path:'composition',  populate: { path: 'user' }}).populate('user').select('-__v').exec(function(error, submissions) {
     if(error) response.json({message: 'Could not find any submissions'});
 
     response.json({submissions: submissions});

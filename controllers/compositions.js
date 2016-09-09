@@ -8,11 +8,13 @@ module.exports = {
 
 // GET /compositions
 function index(request, response) {
-  Composition.find({}, function(error, compositions) {
+  console.log("going to find the composition")
+  Composition.find({}).populate('user').select('-__v').exec(function(error, compositions) {
     if(error) response.json({message: 'Could not find any compositions'});
-
+    console.log("found it!")
+    console.log(compositions)
     response.json({compositions: compositions});
-  }).select('-__v');
+  })
 }
 
 function create(req, res) {

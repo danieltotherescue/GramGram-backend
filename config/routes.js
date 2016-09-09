@@ -28,9 +28,9 @@ router.post('/compositions', token.authenticate,compCtrl.create);
 router.get('/compositions/:id', token.authenticate,compCtrl.show);
 
 // submissions paths
-router.get('/submissions', token.authenticate, subCtrl.index);
+router.get('/submissions', subCtrl.index);
 router.post('/submissions', token.authenticate, subCtrl.create);
-router.get('/submissions/:id', token.authenticate, subCtrl.show);
+router.get('/submissions/:id', subCtrl.show);
 
 
 module.exports = router
